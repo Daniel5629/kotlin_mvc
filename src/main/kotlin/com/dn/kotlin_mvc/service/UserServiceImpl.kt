@@ -53,8 +53,8 @@ class UserServiceImpl(
 
     private fun validateUserEmail(email: String): Boolean {
         var validateResult = false
-        userRepository.findByEmail(email)
-            ?: run { validateResult = true }
+        val userEntity = userRepository.findByEmail(email)
+        userEntity ?: run { validateResult = true }
 
         return validateResult
     }
