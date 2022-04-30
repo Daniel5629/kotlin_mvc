@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Table(name = "user")
 @Entity
-@SQLDelete(sql = "update user set is_delete = true where id = ?")
+@SQLDelete(sql = "update user set is_delete = true where user_id = ?")
 @Where(clause = "is_delete = false")
 class UserEntity(
     @Column(name = "name") var name: String,

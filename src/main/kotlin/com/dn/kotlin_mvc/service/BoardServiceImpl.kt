@@ -55,6 +55,7 @@ class BoardServiceImpl(
 
     @Transactional
     override fun deleteBoard(boardId: Long) {
-git
+        val boardEntity = findBoardById(boardId)
+        boardRepository.delete(boardEntity)
     }
 }

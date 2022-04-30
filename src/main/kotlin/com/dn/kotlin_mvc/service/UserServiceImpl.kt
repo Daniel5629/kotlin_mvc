@@ -48,7 +48,7 @@ class UserServiceImpl(
     @Transactional
     override fun deleteUser(userId: Long) {
         val userEntity = findUserById(userId)
-        userEntity.isDelete = true
+        userRepository.delete(userEntity)
     }
 
     private fun validateUserEmail(email: String): Boolean {
