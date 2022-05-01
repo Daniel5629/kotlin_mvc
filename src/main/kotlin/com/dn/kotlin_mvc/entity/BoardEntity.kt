@@ -15,8 +15,8 @@ class BoardEntity(
     @Column(name = "content") var content: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    var writer: UserEntity
+    @JoinColumn(name = "member_id")
+    var writer: MemberEntity
 
 ) : BaseEntity() {
     @Id

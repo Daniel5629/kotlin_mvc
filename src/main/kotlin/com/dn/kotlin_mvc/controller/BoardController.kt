@@ -48,10 +48,17 @@ class BoardController(
         return ResponseEntity(responseDto, HttpStatus.OK)
     }
 
-    @PutMapping("/v1/boards")
+    @PutMapping("/v1/boards/{boardId}")
     @Operation(summary = "게시물 수정 API", description = "게시물 수정")
-    fun updateUser(@RequestBody boardUpdateRequestDto: BoardUpdateRequestDto): ResponseEntity<BoardResponseDto> {
-        val responseDto = boardService.updateBoard(boardUpdateRequestDto).toResponseDto()
+    fun updateUser(
+        @Parameter(
+            description = "게시물 아이디",
+            required = true,
+            example = "1"
+        ) @PathVariable boardId: Long,
+        @RequestBody boardUpdateRequestDto: BoardUpdateRequestDto
+    ): ResponseEntity<BoardResponseDto> {
+        val responseDto = boardService.updateBoard(boardId, boardUpdateRequestDto).toResponseDto()
         return ResponseEntity(responseDto, HttpStatus.OK)
     }
 

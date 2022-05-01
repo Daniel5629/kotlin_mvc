@@ -10,6 +10,6 @@ interface BoardService {
     fun findAllBoard(pageable:Pageable): Page<BoardEntity>
     fun findBoardById(boardId: Long): BoardEntity
     fun createBoard(boardCreateRequestDto: BoardCreateRequestDto): BoardEntity
-    fun updateBoard(boardUpdateRequestDto: BoardUpdateRequestDto): BoardEntity
+    fun updateBoard(boardId: Long, boardUpdateRequestDto: BoardUpdateRequestDto): BoardEntity
     fun deleteBoard(boardId: Long)
 }

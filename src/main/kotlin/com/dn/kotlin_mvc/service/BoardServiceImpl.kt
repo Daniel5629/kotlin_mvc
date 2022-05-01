@@ -4,7 +4,7 @@ import com.dn.kotlin_mvc.controller.dto.request.BoardCreateRequestDto
 import com.dn.kotlin_mvc.controller.dto.request.BoardUpdateRequestDto
 import com.dn.kotlin_mvc.entity.BoardEntity
 import com.dn.kotlin_mvc.repository.BoardRepository
-import com.dn.kotlin_mvc.repository.UserRepository
+import com.dn.kotlin_mvc.repository.MemberRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class BoardServiceImpl(
     private var boardRepository: BoardRepository,
-    private var userRepository: UserRepository
+    private var userRepository: MemberRepository
 ) : BoardService {
 
     @Transactional(readOnly = true)
@@ -31,7 +31,7 @@ class BoardServiceImpl(
     @Transactional
     override fun createBoard(boardCreateRequestDto: BoardCreateRequestDto): BoardEntity {
         val userEntity = (userRepository.findByIdOrNull(boardCreateRequestDto.writerId)
-            ?: throw IllegalArgumentException("게시물을 등록할 수 없는 사용자입니다."))
+            ?: throw IllegalArgumentException("게시물을 등록할 수 없는 회원입니다."))
 
         val boardEntity = boardCreateRequestDto.toEntity(userEntity)
         boardRepository.save(boardEntity)
@@ -40,11 +40,11 @@ class BoardServiceImpl(
     }
 
     @Transactional
-    override fun updateBoard(boardUpdateRequestDto: BoardUpdateRequestDto): BoardEntity {
-        val boardEntity = findBoardById(boardUpdateRequestDto.boardId)
+    override fun updateBoard(boardId: Long, boardUpdateRequestDto: BoardUpdateRequestDto): BoardEntity {
+        val boardEntity = findBoardById(boardId)
 
         if (boardEntity.writer.id != boardUpdateRequestDto.writerId) {
-            throw IllegalArgumentException("게시물 수정 권한이 없는 사용자입니다.")
+            throw IllegalArgumentException("게시물 수정 권한이 없는 회원입니다.")
         }
 
         boardEntity.title = boardUpdateRequestDto.title
