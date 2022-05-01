@@ -44,10 +44,13 @@ class SwaggerConfig {
     // https://springdoc.org/faq.html
     @Bean
     fun swaggerUiConfig(config: SwaggerUiConfigProperties): SwaggerUiConfigProperties {
-        config.showCommonExtensions = true
-        config.queryConfigEnabled = true
+//        config.showCommonExtensions = true
+//        config.queryConfigEnabled = true
         // 하단 schemas 제거
         config.defaultModelsExpandDepth = -1
+        config.isDisableSwaggerDefaultUrl = true
+        config.url = "/v3/api-docs"
+        config.configUrl = "/v3/api-docs/swagger-config"
 
         return config
     }

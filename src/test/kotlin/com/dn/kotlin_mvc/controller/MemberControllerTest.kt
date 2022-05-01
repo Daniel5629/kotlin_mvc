@@ -10,18 +10,19 @@ import org.mockito.Mock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.web.servlet.MockMvc
+import java.util.*
 
-@WebMvcTest
+//@WebMvcTest
 internal class MemberControllerTest {
 
-    @Autowired
-    private lateinit var mockMvc:MockMvc
-
-    @InjectMocks
-    private lateinit var memberController: MemberController
-
-    @Mock
-    private lateinit var memberService: MemberService
+//    @Autowired
+//    private lateinit var mockMvc:MockMvc
+//
+//    @InjectMocks
+//    private lateinit var memberController: MemberController
+//
+//    @Mock
+//    private lateinit var memberService: MemberService
 
     @DisplayName("전체 회원을 조회한다.")
     @Test
@@ -46,5 +47,17 @@ internal class MemberControllerTest {
     @DisplayName("회원 삭제")
     @Test
     fun deleteMember() {
+        val toString = UUID.randomUUID()
+            .toString()
+
+        val lastIndexOf = toString.lastIndexOf("-")
+
+        val substring = toString
+            .uppercase()
+            .substring(lastIndexOf+1)
+
+        println(toString)
+        println(substring)
+
     }
 }

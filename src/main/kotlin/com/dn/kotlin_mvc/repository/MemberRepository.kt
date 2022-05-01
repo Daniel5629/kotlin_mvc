@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository
 interface MemberRepository: JpaRepository<MemberEntity,Long?> {
     @Query("SELECT * FROM MEMBER where MEMBER.EMAIL = :email", nativeQuery = true)
     fun findByEmail(@Param("email") email: String): MemberEntity?
+    fun findByNameAndPhoneNumber(name:String, phoneNumber:String): MemberEntity?
+    fun findByNameAndEmail(name:String, email: String): MemberEntity?
 }

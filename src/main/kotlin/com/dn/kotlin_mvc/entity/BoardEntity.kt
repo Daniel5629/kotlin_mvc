@@ -24,11 +24,16 @@ class BoardEntity(
     @Column(name = "board_id")
     var id: Long? = null
 
+    @Column(name = "views")
+    var views: Int = 0
+
     fun toResponseDto(): BoardResponseDto {
         return BoardResponseDto(
+            boardId = id,
             title = title,
             content = content,
             writerName = writer.name,
+            views = views,
             createdDate = createdDate,
             updatedDate = updatedDate
         )

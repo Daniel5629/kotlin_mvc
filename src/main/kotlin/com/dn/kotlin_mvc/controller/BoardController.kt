@@ -7,7 +7,11 @@ import com.dn.kotlin_mvc.service.BoardService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springdoc.api.annotations.ParameterObject
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,10 +24,13 @@ class BoardController(
 
     @GetMapping("/v1/boards")
     @Operation(summary = "전체 게시판 조회 API", description = "전체 게시판 조회")
-    fun findAllBoard(pageable: Pageable): ResponseEntity<List<BoardResponseDto>> {
+    fun findAllBoard(
+        @ParameterObject
+        @PageableDefault(page = 0, size = 5, sort = ["id"], direction = Sort.Direction.DESC)
+        pageable: Pageable
+    ): ResponseEntity<Page<BoardResponseDto>> {
         val responseDtoList = boardService.findAllBoard(pageable)
             .map { boardEntity -> boardEntity.toResponseDto() }
-            .toList()
 
         return ResponseEntity(responseDtoList, HttpStatus.OK)
     }

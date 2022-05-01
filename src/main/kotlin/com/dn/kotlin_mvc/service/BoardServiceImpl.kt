@@ -19,13 +19,24 @@ class BoardServiceImpl(
 
     @Transactional(readOnly = true)
     override fun findAllBoard(pageable: Pageable): Page<BoardEntity> {
+
+        println("sort: ${pageable.sort}")
+        println("page: ${pageable.pageNumber}")
+        println("size: ${pageable.pageSize}")
+        println("offset: ${pageable.offset}")
+
         return boardRepository.findAll(pageable)
     }
 
     @Transactional(readOnly = true)
     override fun findBoardById(boardId: Long): BoardEntity {
-       return boardRepository.findByIdOrNull(boardId)
-            ?: throw IllegalArgumentException("존재하지 않는 게시물입니다.")
+        val boardEntity = (boardRepository.findByIdOrNull(boardId)
+            ?: throw IllegalArgumentException("존재하지 않는 게시물입니다."))
+
+        // TODO: 2022/05/01 새로고침 시 조회수 증가 막기
+        boardEntity.views += 1
+
+        return boardEntity
     }
 
     @Transactional

@@ -20,5 +20,5 @@ spring:
       hibernate:
         format_sql: true
 
-  springdoc:
-    packagesToScan: com.dn.kotlin_mvc.controller
+#  springdoc:
+#    packagesToScan: com.dn.kotlin_mvc.controller
