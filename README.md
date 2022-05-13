@@ -15,6 +15,6 @@
 # 삭제시
 > docker-compose down all
 
-build/lib 내 jar 삭제
+build/libs 내 jar 삭제
 ./mysql_volume 폴더 삭제
 ```
