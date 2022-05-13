@@ -9,7 +9,6 @@
 > ./gradlew bootJar
 > docker-compose up
 
-
 ```
 3. 삭제 명령어 & 파일 삭제
 ```bash
