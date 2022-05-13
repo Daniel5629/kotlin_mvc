@@ -29,6 +29,7 @@ class MemberServiceImpl(
 
     @Transactional
     override fun createMember(memberCreateRequestDto: MemberCreateRequestDto): MemberEntity {
+        //
         val validateResult = validateUserEmail(memberCreateRequestDto.email)
 
         if (!validateResult) {

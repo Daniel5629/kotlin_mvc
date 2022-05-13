@@ -27,7 +27,7 @@ class MemberEntity(
     @Column(name = "is_blocked")
     var isBlocked: Boolean = false
 
-    @Column(name = "login_fali_count")
+    @Column(name = "login_fail_count")
     var loginFailCount: Int = 0
 
     fun toResponseDto(): MemberResponseDto {

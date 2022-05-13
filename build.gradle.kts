@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.dn"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -27,6 +27,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-data-rest:1.6.7")
     implementation("org.springdoc:springdoc-openapi-ui:1.6.7")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.7")
+    implementation("mysql:mysql-connector-java")
 }
 
 allOpen { // 추가적으로 열어줄 allOpen

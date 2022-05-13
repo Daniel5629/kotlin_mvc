@@ -1,0 +1,49 @@
+# 파일 규격 버전
+version: "3"
+services:
+  mysqldb:
+    image: mysql:8
+    restart: always
+    platform: linux/x86_64
+    command:
+      - --lower_case_table_names=1
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    container_name: kotlin_mvc_mysql
+    ports:
+      - "3306:3306"
+    # -e 옵션임
+    environment:
+      MYSQL_DATABASE: kotlin_mvc
+      MYSQL_ROOT_PASSWORD: 5629
+      MYSQL_ROOT_HOST: "%"
+    # 프로젝트 root 경로에 volume 생성
+    # ":"를 기준으로 앞쪽이 로컬 파일시스템의 경로, 뒤쪽이 컨테이너 내부의 경로
+    # 설정해준 컨테이너의 경로를 지정한 로컬 경로로 마운트 시킨다.
+    volumes:
+        - ./mysql_volume:/var/lib/mysql
+    networks:
+      - backend
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: kotlin_mvc
+    # 이걸 넣어줘야 DB가 완전히 시작할때 까지 restart 한다.
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      MYSQL_HOST: mysqldb
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 5629
+      MYSQL_DATABASE: kotlin_mvc
+    ports:
+      - "80:8080"
+    depends_on:
+      - mysqldb
+    networks:
+      - backend
+networks:
+  backend:
